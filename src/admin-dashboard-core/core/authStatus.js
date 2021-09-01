@@ -1,0 +1,3 @@
+export var AUTHORIZED = 'AUTHORIZED';
+export var UNAUTHORIZED = 'UNAUTHORIZED';
+export var ELAPSED = 'ELAPSED';
