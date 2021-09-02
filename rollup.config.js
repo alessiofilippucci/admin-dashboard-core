@@ -1,5 +1,5 @@
 import babel from '@rollup/plugin-babel';
-import resolve from '@rollup/plugin-node-resolve';
+import resolve, { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
 import filesize from 'rollup-plugin-filesize';
@@ -9,6 +9,7 @@ import pkg from './package.json';
 
 const INPUT_FILE_PATH = 'src/index.js';
 const OUTPUT_NAME = 'Example';
+const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 
 const GLOBALS = {
   react: 'React',
@@ -26,16 +27,21 @@ const PLUGINS = [
   babel({
     babelHelpers: 'runtime',
     exclude: 'node_modules/**',
+    extensions,
   }),
   resolve({
-    browser: true,
+    browser: true, // <-- suppress node-specific features
     resolveOnly: [
       /^(?!react$)/,
       /^(?!react-dom$)/,
       /^(?!prop-types)/,
     ],
+    extensions: ['.jsx', '.js', '.json'],
   }),
-  commonjs(),
+  commonjs({
+    include: /node_modules/
+  }),
+  nodeResolve(),
   filesize(),
 ];
 
@@ -43,6 +49,11 @@ const EXTERNAL = [
   'react',
   'react-dom',
   'prop-types',
+  'admin-dashboard',
+  'admin-dashboard-core',
+  'admin-dashboard-languages',
+  'admin-dashboard-material-ui',
+  '@sheerun/mutationobserver-shim'
 ];
 
 // https://github.com/rollup/plugins/tree/master/packages/babel#babelhelpers
