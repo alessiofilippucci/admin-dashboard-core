@@ -5,7 +5,7 @@ import './AnExample.css';
 
 const AnExample = ({ name }) => (
   <div className="an-example">
-   Welcome 2 &nbsp;
+    This is an example by
     { name }
   </div>
 );

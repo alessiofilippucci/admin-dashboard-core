@@ -5,7 +5,9 @@
         [
           "@babel/preset-env"
         ],
-        "@babel/preset-react"
+        [
+          "@babel/preset-react"
+        ]
       ]
     }
   },
@@ -16,12 +18,19 @@
         "modules": false
       }
     ],
-    "@babel/preset-react"
+    [
+      "@babel/preset-react", {
+      "targets": {
+        "node": "current"
+      }
+    }
+  ]
   ],
   "ignore": [
     "node_modules/**"
   ],
   "plugins": [
-    "@babel/plugin-transform-runtime"
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-syntax-jsx"
   ]
 }
