@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { AnExample, AnotherExample } from '@alessio.filippucci/npmsample'
+import { AnExample, AnotherExample, AdminDashboard } from '@alessio.filippucci/npmsample'
 
 const App = () => {
-  //console.log(Utils.GetFullHostName());
+  //console.log(AdminDashboard);
   return (
     <>
       <AnExample name={"Alessio"} />

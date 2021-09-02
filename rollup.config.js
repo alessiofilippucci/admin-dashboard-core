@@ -49,30 +49,44 @@ const EXTERNAL = [
   'react',
   'react-dom',
   'prop-types',
-  'admin-dashboard',
-  'admin-dashboard-core',
-  'admin-dashboard-languages',
-  'admin-dashboard-material-ui',
-  '@sheerun/mutationobserver-shim'
+  'reselect'
 ];
 
 // https://github.com/rollup/plugins/tree/master/packages/babel#babelhelpers
 const CJS_AND_ES_EXTERNALS = EXTERNAL.concat(/@babel\/runtime/);
 
 const OUTPUT_DATA = [
-  {
-    file: pkg.browser,
-    format: 'umd',
-  },
-  {
-    file: pkg.main,
-    format: 'cjs',
-  },
+  // {
+  //   file: pkg.browser,
+  //   format: 'umd',
+  // },
+  // {
+  //   file: pkg.main,
+  //   format: 'cjs',
+  // },
   {
     file: pkg.module,
     format: 'es',
   },
 ];
+
+const onwarn = warning => {
+  // Skip certain warnings
+  switch (warning.code) {
+    case 'THIS_IS_UNDEFINED':
+    case 'UNUSED_EXTERNAL_IMPORT':
+    case 'CIRCULAR_DEPENDENCY':
+    case 'NAMESPACE_CONFLICT':
+      return;
+    default:
+      // console.warn everything else
+      console.warn(`(!) ${warning.code}`);
+      console.warn("IN:\t", warning.importer);
+      console.warn("SOURCE:\t", warning.source);
+      console.warn("MESSAGE:", warning.message, "\n");
+      break;
+  }
+}
 
 const config = OUTPUT_DATA.map(({ file, format }) => ({
   input: INPUT_FILE_PATH,
@@ -84,6 +98,7 @@ const config = OUTPUT_DATA.map(({ file, format }) => ({
   },
   external: ['cjs', 'es'].includes(format) ? CJS_AND_ES_EXTERNALS : EXTERNAL,
   plugins: PLUGINS,
+  onwarn
 }));
 
 export default config;
