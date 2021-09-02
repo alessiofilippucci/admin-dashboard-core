@@ -1,12 +1,9 @@
-import React from 'react'
-import styles from './styles.module.css'
+/* eslint import/extensions: 0 */
 
-export const ExampleComponent = ({ text }) => {
-  return <div className={styles.test}>Example Component: {text}</div>
-}
+import AnExample from './AnExample/index.jsx';
+import AnotherExample from './AnotherExample/index.jsx';
 
-export const MyDiv = ({ text, ...props}) => {
-  return <div {...props}>{text}</div>
-}
-
-export * from './admin-dashboard'
+export {
+  AnExample,
+  AnotherExample,
+};

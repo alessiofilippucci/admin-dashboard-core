@@ -1,5 +1,4 @@
-build/
-dist/
-node_modules/
-.snapshots/
-*.min.js
+coverage/*
+build
+node_modules
+*.stories.jsx
